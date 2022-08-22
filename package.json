@@ -1,0 +1,20 @@
+{
+  "name": "auto-gns",
+  "version": "1.0.0",
+  "description": "Automatic DDNS for GDomains",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "keywords": [
+    "google",
+    "domains",
+    "ddns",
+    "dyndns",
+    "dns",
+    "auto",
+    "update"
+  ],
+  "author": "Mathieu Colmon",
+  "license": "ISC"
+}
