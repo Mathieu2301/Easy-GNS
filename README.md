@@ -9,7 +9,7 @@ This script will update your domains every `X` minutes.
 version: '3'
 
 services:
-  useless:
+  easy-gns:
     image: ghcr.io/mathieu2301/easy-gns:latest
     restart: always
     environment:
