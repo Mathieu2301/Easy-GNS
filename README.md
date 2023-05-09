@@ -1,25 +1,55 @@
-# Auto GNS
+# Easy GNS
 
-Automatic DDNS for GDomains
+Simplest DDNS auto updater for Google Domains.
+This script will update your domains every `X` minutes.
 
-## Installation
+## Run with Docker
 
-```sh
-git clone https://github.com/Mathieu2301/Auto-GNS.git
+```yml
+version: '3'
+
+services:
+  useless:
+    image: ghcr.io/mathieu2301/easy-gns:latest
+    restart: always
+    environment:
+      GNS_EMAIL: email@example.fr # Your GDomains email
+      GNS_IPV6: true # Set this to false if you are sure you don't use ipv6
+      GNS_INTERVAL: 30 # Interval in minutes
+
+      # You can add as many domains as you want
+      # every variable starting with GNS_ will
+      # be parsed as a domain
+      GNS_DOMAIN_1: username1:password1@example.com
+      GNS_DOMAIN_2: username2:password2@*.example2.fr
+      GNS_DOMAIN_3: username3:password3@*.subdomain.example.fr
+      # ...
+      GNS_DEBUG: 1 # Comment this line to disable debug mode
 ```
 
-## Configuration
+## Run with pm2
 
-Copy or rename the `config.js.template` file to `config.js` and fill in the values.
+### Configuration
 
-## Run
+Create a `.env` file with the following content:
 
 ```sh
-npm run
+GNS_EMAIL=email@example.fr # Your GDomains email
+GNS_IPV6=true # Set this to false if you are sure you don't use ipv6
+GNS_INTERVAL=30 # Interval in minutes
+
+# You can add as many domains as you want
+# every variable starting with GNS_ will
+# be parsed as a domain
+GNS_DOMAIN_1=username1:password1@example.com
+GNS_DOMAIN_2=username2:password2@*.example2.fr
+GNS_DOMAIN_3=username3:password3@*.subdomain.example.fr
+# ...
+GNS_DEBUG=1 # Comment this line to disable debug mode
 ```
 
-You should use pm2 to run the script automatically.
+### Run
 
 ```sh
-pm2 start main.js --name 'Auto GNS'
+pm2 start main.js --name 'Easy GNS'
 ```

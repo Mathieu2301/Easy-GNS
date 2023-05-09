@@ -15,13 +15,21 @@ async function run() {
   }
 
   for (const hostname in config.domains) {
+    if (config.debug) console.log(`Checking '${hostname}'...`);
     const credentials = config.domains[hostname];
     const res = await gdomains(credentials, hostname, ip);
-    if (res.startsWith('good')) console.log(`${hostname} updated:`, res);
-    // else if (res.startsWith('nochg')) console.log(`${hostname} is up to date:`, res);
-    else if (!res.startsWith('nochg')) console.error(`${hostname} is not up to date:`, res);
+
+    if (res.startsWith('good'))
+      console.log(`${hostname} updated:`, res);
+    else if (config.debug && res.startsWith('nochg'))
+      console.log(`${hostname} is up to date:`, res);
+    else if (!res.startsWith('nochg'))
+      console.error(`${hostname} is not up to date:`, res);
   }
 }
+
+console.log(`Starting...`);
+console.log(`The script will run every ${config.delay} minutes`);
 
 setInterval(run, config.delay * 60000);
 run();
